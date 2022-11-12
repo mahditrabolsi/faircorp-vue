@@ -15,44 +15,72 @@
       </ul>
 
       <div class="windows-list pt-3">
-        <div class="window border border-secondary rounded p-2 mb-2">
-          <div class="top-row d-flex">
-            <div class="window-name fw-bold pe-3">Window 1</div>
-            <div class="room-name text-muted">Room 1</div>
-            <div class="open-status open ms-4">
-              <span class="icon open">&#x2B24;</span>
-              Open
-            </div>
-            <div class="expand-button ms-auto">&#9658;</div>
-          </div>
+        <div v-for="window in this.windows" :key="window.id">
+          <Window :window="window" />
         </div>
 
-        <div class="window border border-secondary rounded p-2">
-          <div class="top-row d-flex">
-            <div class="window-name fw-bold pe-3">Window 1</div>
-            <div class="room-name text-muted">Room 1</div>
-            <div class="open-status open ms-4">
-              <span class="icon closed">&#x2716;</span>
-              Closed
-            </div>
-            <div class="expand-button ms-auto">&#9660;</div>
-          </div>
-          <hr/>
-          <div class="details d-flex">
-            <button type="button" class="btn btn-secondary me-2">Open window</button>
-            <button type="button" class="btn btn-danger disabled">Delete window</button>
-          </div>
-        </div>
+
       </div>
     </section>
+    <div>
+      <!-- call update values function after response -->
+      <WindowForm @response="update_values()" />
+    </div>
 
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import WindowForm from './components/WindowForm.vue'
+import Window from './components/Window.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    WindowForm,
+    Window
+  },
+
+  //predfine data
+  data() {
+    return {
+      windows: []
+    }
+  },
+  methods: {
+    update_values() {
+      this.windows = []
+      axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
+        auth: {
+          username: 'mahdi',
+          password: 'user'
+        }
+      })
+        .then(response => {
+          console.log("got response")
+          this.windows = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+  },
+
+  created() {
+    axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
+      auth: {
+        username: 'mahdi',
+        password: 'user'
+      }
+    })
+      .then(response => {
+        this.windows = response.data
+      })
+  }
+
+
 }
+
 </script>
 
 <style lang="scss" scoped>
