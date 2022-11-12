@@ -16,10 +16,15 @@
             <div @click="showhide" class="expand-button ms-auto">&#9658;</div>
         </div>
 
-        <div class="details" style="display: None;" >
+        <div class="details" style="display: None;">
             <hr />
             <div class="details d-flex">
-                <button type="button" class="btn btn-secondary me-2">Open window</button>
+                <button type="button" class="btn btn-secondary me-2" @click="switch_window">
+                    <span v-if="window.windowStatus === 'CLOSED'"> Open window</span>
+                    <span v-else> Close window</span>
+
+
+                </button>
                 <button type="button" class="btn btn-danger disabled">Delete window</button>
             </div>
         </div>
@@ -27,6 +32,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'Window',
     props: {
@@ -41,6 +48,35 @@ export default {
                 this.$el.querySelector('.details').style.display = 'none';
                 this.$el.querySelector('.expand-button').innerHTML = '&#9658;';
             }
+        },
+        switch_window() {
+            var btn = this.$el.querySelector('.btn-secondary');
+            if (btn.innerHTML === "Open window") {
+                axios.post('http://mahditrabolsi.cleverapps.io/api/windows/switch/' + this.window.id, {}, {
+                    auth: {
+                        username: 'mahdi',
+                        password: 'user'
+                    }
+                }).then(response => {
+                    btn.innerHTML = "Close window";
+                    this.window.windowStatus = "OPEN";
+                })
+
+            } else {
+
+                axios.post('http://mahditrabolsi.cleverapps.io/api/windows/switch/' + this.window.id, {}, {
+                    auth: {
+                        username: 'mahdi',
+                        password: 'user'
+                    }
+                }).then(response => {
+                    btn.innerHTML = "Open window";
+                    this.window.windowStatus = "CLOSED";
+                })
+            }
+
+
+
         }
     },
 }
@@ -49,15 +85,15 @@ export default {
 <style lang="scss" scoped>
 .icon {
     position: relative;
-  
+
     &.open {
-      font-size: 12px;
-      top: -3px;
-      color: #198754;
+        font-size: 12px;
+        top: -3px;
+        color: #198754;
     }
-  
+
     &.closed {
-      color: #dc3545;
+        color: #dc3545;
     }
-  }
+}
 </style>
