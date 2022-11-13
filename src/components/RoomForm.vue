@@ -27,16 +27,6 @@
                 <label for="currentTemperature">Current Temperature</label>
                 <input type="number" class="form-control" id="currentTemperature" v-model="room.currentTemperature" required>
                 </div>
-
-
-
-            <!-- <div class="form-group">
-                <label for="room">Room</label>
-                <select class="form-control" id="room" v-model="room.roomId" required>
-                    <option v-for="room in rooms" :value="room.id">{{ room.name }}</option>
-                </select>
-            </div> -->
-
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
