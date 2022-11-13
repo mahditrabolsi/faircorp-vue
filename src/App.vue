@@ -5,28 +5,33 @@
     </header>
 
     <section class="main-content w-50 mx-auto">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Windows</a>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+
+          <button class="nav-link active" id="windows-tab" data-bs-toggle="tab"  href="#windows" type="button" role="tab" aria-controls="windows" aria-selected="true">Windows</button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Rooms</a>
+        <li class="nav-item" role="presentation">
+
+          <button class="nav-link"  id="rooms-tab" data-bs-toggle="tab" href="#rooms" type="button" role="tab" aria-controls="rooms" aria-selected="false">Rooms</button>
         </li>
       </ul>
-
-      <div class="windows-list pt-3">
+      <div class="tab-content" id="myTabContent"> 
+      <div id="windows" class="windows-list pt-3  tab-pane fade show active" role="tabpanel" aria-labelledby="windows-tab">
         <div v-for="window in this.windows" :key="window.id">
           <Window :window="window" />
         </div>
+        <div>
+          <WindowForm @success="update_values" />
+        </div>
+        </div>
 
+      <div id="rooms" class="rooms-list pt-3  tab-pane fade" role="tabpanel" aria-labelledby="rooms-tab">
+      rooms
+      <WindowForm/>
+      </div>
 
       </div>
     </section>
-    <div>
-      <!-- call update values function after response -->
-      <WindowForm @response="update_values()" />
-    </div>
-
   </div>
 </template>
 
@@ -38,7 +43,7 @@ export default {
   name: 'App',
   components: {
     WindowForm,
-    Window
+    Window,
   },
 
   //predfine data
