@@ -5,14 +5,20 @@
     </header>
 
     <section class="main-content w-50 mx-auto">
-      <ul class="nav nav-tabs">
+      <navigation @panel-change="updatePanel"></navigation>
+       <Window v-if="currentPanel.name === 'Window'"></Window>
+      <WindowForm v-if="currentPanel.name === 'WindowForm'"></WindowForm> 
+    </section>
+
+    <section class="main-content w-50 mx-auto">
+      <!-- <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Windows</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Rooms</a>
         </li>
-      </ul>
+      </ul> -->
 
       <div class="windows-list pt-3">
         <div v-for="window in this.windows" :key="window.id">
@@ -34,17 +40,21 @@
 import axios from 'axios'
 import WindowForm from './components/WindowForm.vue'
 import Window from './components/Window.vue'
+import Navigation from './components/Navigation.vue'
+
 export default {
   name: 'App',
   components: {
     WindowForm,
-    Window
+    Window,
+    Navigation
   },
 
   //predfine data
-  data() {
+  data: function() {
     return {
-      windows: []
+      windows: [],
+      currentPanel: {}
     }
   },
   methods: {
@@ -63,6 +73,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    updatePanel(newPanel) {
+      this.currentPanel = newPanel;
     },
   },
 
@@ -113,3 +126,4 @@ export default {
   }
 }
 </style>
+
