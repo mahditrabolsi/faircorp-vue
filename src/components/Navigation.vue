@@ -20,11 +20,11 @@
         currentPanel: null,
         panels: [{
           id: 0,
-          name: 'Window',
+          name: 'Windows',
           tabDisplay: 'Windows'
         }, {
           id: 1,
-          name: 'WindowForm',
+          name: 'Rooms',
           tabDisplay: 'Rooms'
         }]
       }
