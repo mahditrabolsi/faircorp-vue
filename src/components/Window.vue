@@ -25,6 +25,7 @@
 
 
                 </button>
+                <button type="button" class="btn btn-secondary me-2" @click="rename_window">Rename window</button>
                 <button type="button" class="btn btn-danger"  @click="delete_window" >Delete window</button>
             </div>
         </div>
@@ -41,6 +42,7 @@ export default {
         window: Object
     },
     methods: {
+
         showhide() {
             if (this.$el.querySelector('.details').style.display === 'none') {
                 this.$el.querySelector('.details').style.display = 'block';
@@ -85,7 +87,31 @@ export default {
             }).then(response => {
                 this.$el.remove();
             })
-        }
+        },
+        rename_window() {
+            var new_name = prompt("Enter new name");
+            this.window.name = new_name;
+            axios({
+        method: 'post',
+        url: 'https://mahditrabolsi.cleverapps.io/api/windows',
+        auth: {
+          username: "mahdi",
+          password: "user",
+        },
+        data: this.window,
+      })
+        .then(response => {
+          console.log(response.data)
+          this.$emit('success', "true");
+        })
+        .catch(error => {
+          console.log(error)
+          this.$emit('success', "false");
+          this.$emit('response', error.response.data);
+        });        
+    }
+         
+
     },
 }
 </script>

@@ -33,7 +33,7 @@
                     </div>
 
                 </div>
-
+                <button type="button" class="btn btn-secondary me-2" @click="rename_room">Rename room</button>
                 <button type="button" style="margin-left: 10px;" class="btn btn-danger" @click="delete_room">Delete room</button>
             </div>
         </div>
@@ -68,7 +68,29 @@ export default {
             }).then(response => {
                 this.$el.remove();
             })
-        }
+        },
+        rename_room() {
+            var new_name = prompt("Enter new name");
+            this.room.name = new_name;
+            axios({
+        method: 'post',
+        url: 'https://mahditrabolsi.cleverapps.io/api/windows',
+        auth: {
+          username: "mahdi",
+          password: "user",
+        },
+        data: this.window,
+      })
+        .then(response => {
+          console.log(response.data)
+          this.$emit('success', "true");
+        })
+        .catch(error => {
+          console.log(error)
+          this.$emit('success', "false");
+          this.$emit('response', error.response.data);
+        });        
+    }
     },
 }
 </script>
