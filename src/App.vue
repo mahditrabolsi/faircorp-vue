@@ -10,10 +10,13 @@
        <div v-for="window in this.windows" :key="window.id">
         <Window :window="window" />
       </div>
-      <WindowForm @success="update_values"/> 
+      <WindowForm @success="update_windows"/> 
     </div>
     <div v-if="currentPanel.name === 'Rooms'">
-    Rooms 
+      <div v-for="room in this.rooms" :key="room.id">
+        <Room :room="room" />
+      </div>
+      <RoomForm @success="update_rooms"/>
     
     </div>
 
@@ -27,24 +30,29 @@ import axios from 'axios'
 import WindowForm from './components/WindowForm.vue'
 import Window from './components/Window.vue'
 import Navigation from './components/Navigation.vue'
+import RoomForm from './components/RoomForm.vue'
+import Room from './components/Room.vue'
 
 export default {
   name: 'App',
   components: {
     WindowForm,
     Window,
-    Navigation
+    Navigation,
+    Room,
+    RoomForm
   },
 
   //predfine data
   data: function() {
     return {
       windows: [],
-      currentPanel: {}
+      currentPanel: {},
+      rooms: []
     }
   },
   methods: {
-    update_values() {
+    update_windows() {
       this.windows = []
       axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
         auth: {
@@ -63,21 +71,22 @@ export default {
     updatePanel(newPanel) {
       this.currentPanel = newPanel;
     },
-  },
-
-  created() {
-    axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
-      auth: {
-        username: 'mahdi',
-        password: 'user'
-      }
-    })
-      .then(response => {
-        this.windows = response.data
+    update_rooms() {
+      axios.get('http://mahditrabolsi.cleverapps.io/api/rooms', {
+        auth: {
+          username: 'mahdi',
+          password: 'user'
+        }
       })
+        .then(response => {
+          this.rooms = response.data
+        })
+    },
+  },
+  created() {
+    this.update_windows()
+    this.update_rooms()
   }
-
-
 }
 
 </script>
