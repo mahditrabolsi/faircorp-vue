@@ -25,9 +25,10 @@
 
 
                 </button>
-                <button type="button" class="btn btn-danger disabled">Delete window</button>
+                <button type="button" class="btn btn-danger"  @click="delete_window" >Delete window</button>
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -74,9 +75,16 @@ export default {
                     this.window.windowStatus = "CLOSED";
                 })
             }
-
-
-
+        },
+        delete_window() {
+            axios.delete('http://mahditrabolsi.cleverapps.io/api/windows/' + this.window.id, {
+                auth: {
+                    username: 'mahdi',
+                    password: 'user'
+                }
+            }).then(response => {
+                this.$el.remove();
+            })
         }
     },
 }
