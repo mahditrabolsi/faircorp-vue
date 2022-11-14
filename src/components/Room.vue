@@ -34,7 +34,7 @@
 
                 </div>
                 <button type="button" style="margin-left: 40px;" class="btn btn-secondary me-2" @click="rename_room">Rename room</button>
-                <button type="button" id="delete" style="margin-left: 10px;" class="btn btn-danger" @click="delete_room">Delete room</button>
+                <button type="button" id="delete_room" style="margin-left: 10px;" class="btn btn-danger" @click="delete_room">Delete room</button>
             </div>
         </div>
 
@@ -60,7 +60,7 @@ export default {
         },
 
         delete_room() {
-            var deleteButton = document.getElementById('delete')
+            var deleteButton = this.$el.querySelector('#delete_room');
             deleteButton.disabled = true
             axios.delete('http://mahditrabolsi.cleverapps.io/api/rooms/' + this.room.id, {
                 auth: {
@@ -72,7 +72,7 @@ export default {
                 this.$el.remove();
 
             } ).catch(error => {
-                disabledButton = false
+                deleteButton.disabled = false
                 console.log(error);
             })
             

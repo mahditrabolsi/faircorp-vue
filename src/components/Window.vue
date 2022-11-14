@@ -54,7 +54,7 @@ export default {
             }
         },
         switch_window() {
-            var btn = this.$el.querySelector('.btn-secondary');
+            var btn = this.$el.querySelector('#switch_btn');
             btn.disabled = true;
             axios.post('http://mahditrabolsi.cleverapps.io/api/windows/switch/' + this.window.id, {}, {
                 auth: {
