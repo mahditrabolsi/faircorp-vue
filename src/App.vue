@@ -6,19 +6,19 @@
 
     <section class="main-content w-50 mx-auto">
       <navigation @panel-change="updatePanel"></navigation>
-       <div v-if="currentPanel.name === 'Windows'">
-       <div v-for="window in this.windows" :key="window.id">
-        <Window :window="window" />
+      <div v-if="currentPanel.name === 'Windows'">
+        <div v-for="window in this.windows" :key="window.id">
+          <Window :window="window" />
+        </div>
+        <WindowForm @success="update_windows" />
       </div>
-      <WindowForm @success="update_windows"/> 
-    </div>
-    <div v-if="currentPanel.name === 'Rooms'">
-      <div v-for="room in this.rooms" :key="room.id">
-        <Room :room="room" />
+      <div v-if="currentPanel.name === 'Rooms'">
+        <div v-for="room in this.rooms" :key="room.id">
+          <Room :room="room" />
+        </div>
+        <RoomForm @success="update_rooms" />
+
       </div>
-      <RoomForm @success="update_rooms"/>
-    
-    </div>
 
 
     </section>
@@ -32,6 +32,9 @@ import Window from './components/Window.vue'
 import Navigation from './components/Navigation.vue'
 import RoomForm from './components/RoomForm.vue'
 import Room from './components/Room.vue'
+import Toasted from 'vue-toasted';
+import Vue from 'vue';
+Vue.use(Toasted)
 
 export default {
   name: 'App',
@@ -44,7 +47,8 @@ export default {
   },
 
   //predfine data
-  data: function() {
+  data: function () {
+
     return {
       windows: [],
       currentPanel: {},
@@ -53,6 +57,8 @@ export default {
   },
   methods: {
     update_windows() {
+        var toast = this.$toasted.show('Updating windows...');
+
       this.windows = []
       axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
         auth: {
@@ -61,17 +67,26 @@ export default {
         }
       })
         .then(response => {
-          console.log("got response")
           this.windows = response.data
+            toast.goAway(0);
+            this.$toasted.success('Windows updated', {
+              duration: 2000,
+            });
+
         })
         .catch(error => {
           console.log(error)
+            toast.goAway(0);
+            this.$toasted.error('Error updating windows', {
+              duration: 2000
+            });
         })
     },
     updatePanel(newPanel) {
       this.currentPanel = newPanel;
     },
-    update_rooms() {
+    update_rooms(from_create = false) {
+        var toast = this.$toasted.show('Updating rooms...');
       axios.get('http://mahditrabolsi.cleverapps.io/api/rooms', {
         auth: {
           username: 'mahdi',
@@ -80,16 +95,52 @@ export default {
       })
         .then(response => {
           this.rooms = response.data
+            toast.goAway(0);
+            this.$toasted.success('Rooms updated', {
+              duration: 2000
+            });
+        })
+        .catch(error => {
+          console.log(error)
+            toast.goAway(0);
+            this.$toasted.error('Error updating rooms', {
+              duration: 2000
+            });
         })
     },
   },
   created() {
-    this.update_windows()
-    this.update_rooms()
-  }
-}
+    axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
+        auth: {
+          username: 'mahdi',
+          password: 'user'
+        }
+      })
+        .then(response => {
+          this.windows = response.data
 
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        axios.get('http://mahditrabolsi.cleverapps.io/api/rooms', {
+        auth: {
+          username: 'mahdi',
+          password: 'user'
+        }
+      })
+        .then(response => {
+          this.rooms = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  },
+
+}
 </script>
+
+
 
 <style lang="scss" scoped>
 #app {

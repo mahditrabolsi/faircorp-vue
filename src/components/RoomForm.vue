@@ -27,7 +27,7 @@
                 <label for="currentTemperature">Current Temperature</label>
                 <input type="number" class="form-control" id="currentTemperature" v-model="room.currentTemperature" required>
                 </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" id="create" class="btn btn-primary">Create</button>
         </form>
     </div>
 </template>
@@ -49,7 +49,9 @@ export default {
     },
     methods: {
         createRoom() {
-            
+            //disable create button
+           var createButton = document.getElementById('create') 
+           createButton.disabled = true            
             axios({
                 method: 'post',
                 url: 'https://mahditrabolsi.cleverapps.io/api/rooms',
@@ -62,11 +64,13 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.$emit('success', "true");
+                    createButton.disabled = false
                 })
                 .catch(error => {
                     console.log(error)
                     this.$emit('success', "false");
                     this.$emit('response', error.response.data);
+                    createButton.disabled = false
                 });
 
         }
