@@ -6,7 +6,9 @@
 
     <section class="main-content w-50 mx-auto">
       <navigation @panel-change="updatePanel"></navigation>
+      <Spinner size="medium" class=" m-4 " id="spinner" />
       <div v-if="currentPanel.name === 'Windows'">
+
         <div v-for="window in this.windows" :key="window.id">
           <Window :window="window" />
         </div>
@@ -32,9 +34,9 @@ import Window from './components/Window.vue'
 import Navigation from './components/Navigation.vue'
 import RoomForm from './components/RoomForm.vue'
 import Room from './components/Room.vue'
-import LoadingAnimation from './components/LoadingAnimation.vue'
 import Toasted from 'vue-toasted';
 import Vue from 'vue';
+import Spinner from 'vue-simple-spinner'
 Vue.use(Toasted)
 
 export default {
@@ -44,10 +46,10 @@ export default {
     Window,
     Navigation,
     Room,
-    RoomForm
-  },
+    RoomForm,
+    Spinner
+},
 
-  //predfine data
   data: function () {
 
     return {
@@ -59,8 +61,9 @@ export default {
   methods: {
     update_windows() {
         var toast = this.$toasted.show('Updating windows...');
-
-      this.windows = []
+      var spinner = document.getElementById('spinner');
+        this.windows = [];
+      spinner.style.display = 'block';
       axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
         auth: {
           username: 'mahdi',
@@ -68,6 +71,8 @@ export default {
         }
       })
         .then(response => {
+          spinner = document.getElementById("spinner");
+          spinner.style.display = 'none';
           this.windows = response.data
             toast.goAway(0);
             this.$toasted.success('Windows updated', {
@@ -76,7 +81,8 @@ export default {
 
         })
         .catch(error => {
-          console.log(error)
+          spinner = document.getElementById("spinner");
+          spinner.style.display = 'none';
             toast.goAway(0);
             this.$toasted.error('Error updating windows', {
               duration: 2000
@@ -111,6 +117,7 @@ export default {
     },
   },
   created() {
+    var spinner = document.getElementById("spinner");
     axios.get('http://mahditrabolsi.cleverapps.io/api/windows', {
         auth: {
           username: 'mahdi',
@@ -118,10 +125,14 @@ export default {
         }
       })
         .then(response => {
+          spinner = document.getElementById("spinner");
+          spinner.style.display = "none";
           this.windows = response.data
 
         })
         .catch(error => {
+          spinner = document.getElementById("spinner");
+          spinner.style.display = "none";
           console.log(error)
         })
         axios.get('http://mahditrabolsi.cleverapps.io/api/rooms', {
