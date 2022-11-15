@@ -12,6 +12,7 @@
     "bootstrap": "^5.2.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-simple-spinner": "^1.2.10",
     "vue-toasted": "^1.1.28"
   },
   "devDependencies": {

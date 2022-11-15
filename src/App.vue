@@ -32,6 +32,7 @@ import Window from './components/Window.vue'
 import Navigation from './components/Navigation.vue'
 import RoomForm from './components/RoomForm.vue'
 import Room from './components/Room.vue'
+import LoadingAnimation from './components/LoadingAnimation.vue'
 import Toasted from 'vue-toasted';
 import Vue from 'vue';
 Vue.use(Toasted)
@@ -171,5 +172,9 @@ export default {
     cursor: pointer;
   }
 }
+</style>
+
+<style>
+@import 'assets/style.css';
 </style>
 

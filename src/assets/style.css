@@ -1,0 +1,51 @@
+body{
+    background-color: rgb(195, 196, 196);
+}
+
+.title{
+    margin-bottom: px;
+    font-size: xx-large;
+    color: brown;
+    margin-bottom: 20px;
+}
+
+.nav.nav-tabs{
+    background-color: rgb(150, 150, 150);
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.nav-link{
+color: blue;
+}
+
+.btn.btn-secondary.me-2{
+    background-color: rgb(23, 150, 23);    
+}
+
+.card.w-50.mx-auto.my-4.py-3{
+background-color:  rgb(160, 160, 160);
+
+}
+
+.form-control{
+margin-bottom: 8px;
+}
+
+label[for=name],[for=room],[for=windowStatus],
+[for=floor],[for=buildingId],[for=targetTemperature],
+[for=currentTemperature]
+{
+    font-size: large;
+    float: left;
+    margin-left: 10px;
+}
+
+.window.border.border-secondary.rounded.p-2.mb-2{
+background-color: rgb(235, 183, 107);
+}
+
+.room.border.border-secondary.rounded.p-2.mb-2{
+    background-color: rgb(214, 159, 76);
+
+}
