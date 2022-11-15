@@ -1,10 +1,12 @@
 ### Introduction
-This project that uses Vue.js to create a web application that allows users to search for Rooms and Windows and display the results. The project uses the database project (Faircorp) to retrieve and update the data.
+This project is a web application  using Vue.js that allows users to search for Rooms and Windows and display the results. This project uses the API from the project [(Faircorp)](https://mahditrabolsi.cleverapps.io) to retrieve and update the data.
 
-### Prerequisites
+### Libraries used
 - Vue.js
 - Axios
 - Bootstrap
+- Vue-simple-spinner
+- vue-toasted
 
 ### Features
 - Display the list of Rooms and Windows
@@ -13,6 +15,7 @@ This project that uses Vue.js to create a web application that allows users to s
 - Create a new Window or a new Room
 - Update Window and Room
 - Display the current and target temperature of a Room
+- Rename Windows and Rooms
 
 ### Authors
 - Mahdi Trabolsi
@@ -34,11 +37,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
