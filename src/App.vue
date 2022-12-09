@@ -64,7 +64,7 @@ export default {
       var spinner = document.getElementById('spinner');
         this.windows = [];
       spinner.style.display = 'block';
-      axios.get('localhost:4000/api/windows', {
+      axios.get('http:localhost:4000/api/windows', {
         auth: {
           username: 'mahdi',
           password: 'user'
@@ -94,7 +94,7 @@ export default {
     },
     update_rooms(from_create = false) {
         var toast = this.$toasted.show('Updating rooms...');
-      axios.get('localhost:4000/api/rooms', {
+      axios.get('http:localhost:4000/api/rooms', {
         auth: {
           username: 'mahdi',
           password: 'user'
@@ -118,7 +118,7 @@ export default {
   },
   created() {
     var spinner = document.getElementById("spinner");
-    axios.get('localhost:4000/api/windows', {
+    axios.get('http:localhost:4000/api/windows', {
         auth: {
           username: 'mahdi',
           password: 'user'
@@ -135,7 +135,7 @@ export default {
           spinner.style.display = "none";
           console.log(error)
         })
-        axios.get('localhost:4000/api/rooms', {
+        axios.get('http:localhost:4000/api/rooms', {
         auth: {
           username: 'mahdi',
           password: 'user'

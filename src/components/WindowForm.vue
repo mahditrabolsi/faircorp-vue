@@ -47,7 +47,7 @@ export default {
       this.window.roomName = this.rooms.find(room => room.id === this.window.roomId).name
       axios({
         method: 'post',
-        url: 'localhost:4000/api/windows',
+        url: 'http:localhost:4000/api/windows',
         auth: {
           username: "mahdi",
           password: "user",
@@ -67,7 +67,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('localhost:4000/api/rooms', {
+    axios.get('http:localhost:4000/api/rooms', {
       auth: {
         username: 'mahdi',
         password: 'user'

@@ -56,7 +56,7 @@ export default {
         switch_window() {
             var btn = this.$el.querySelector('#switch_btn');
             btn.disabled = true;
-            axios.post('localhost:4000/api/windows/switch/' + this.window.id, {}, {
+            axios.post('http:localhost:4000/api/windows/switch/' + this.window.id, {}, {
                 auth: {
                     username: 'mahdi',
                     password: 'user'
@@ -79,7 +79,7 @@ export default {
         delete_window() {
             var deleteButton = this.$el.querySelector('#delete_btn');
             deleteButton.disabled = true;
-            axios.delete('localhost:4000/api/windows/' + this.window.id, {
+            axios.delete('http:localhost:4000/api/windows/' + this.window.id, {
                 auth: {
                     username: 'mahdi',
                     password: 'user'
@@ -98,7 +98,7 @@ export default {
             this.window.name = new_name;
             axios({
                 method: 'post',
-                url: 'localhost:4000/api/windows',
+                url: 'http:localhost:4000/api/windows',
                 auth: {
                     username: "mahdi",
                     password: "user",
