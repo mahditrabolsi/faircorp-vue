@@ -54,7 +54,7 @@ export default {
            createButton.disabled = true            
             axios({
                 method: 'post',
-                url: 'https://mahditrabolsi.cleverapps.io/api/rooms',
+                url: 'localhost:4000/api/rooms',
                 auth: {
                     username: "mahdi",
                     password: "user",
@@ -76,7 +76,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://mahditrabolsi.cleverapps.io/api/buildings', {
+        axios.get('localhost:4000/api/buildings', {
             auth: {
                 username: 'mahdi',
                 password: 'user'

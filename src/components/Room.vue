@@ -62,7 +62,7 @@ export default {
         delete_room() {
             var deleteButton = this.$el.querySelector('#delete_room');
             deleteButton.disabled = true
-            axios.delete('http://mahditrabolsi.cleverapps.io/api/rooms/' + this.room.id, {
+            axios.delete('localhost:4000/api/rooms/' + this.room.id, {
                 auth: {
                     username: 'mahdi',
                     password: 'user'
